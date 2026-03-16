@@ -40,8 +40,16 @@ exports.loginUser = async (req, res) => {
     const password = req.body.password;
     const type = req.body.type;
 
-    const loginResult =  await loginFn(email,password,type);
-      res.status(201).json({ status: true, data: loginResult });
+    const loginResult =  await loginFn(email,password,type).catch((err)=>{
+      res.status(403).json({status: true, data: err.message});
+    });
+
+    if(loginResult) {
+     res.status(201).json({ status: true, data: loginResult });
+    }else {
+      res.status(403).json({status: true, data:"Not able to login"})
+    }
+ 
 
 
 
