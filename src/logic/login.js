@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcryptjs = require('bcryptjs');
-const UserModel = require("../Models/signUpAndLoginModel");
+const UserModel = require("../Models/userModel");
 
 async function loginFn(email, password, type) {
     return new Promise(async (resolve, reject) => {

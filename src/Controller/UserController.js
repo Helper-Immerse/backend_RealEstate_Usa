@@ -1,25 +1,26 @@
-const UserModel = require("../Models/signUpAndLoginModel");
+const UserModel = require("../Models/userModel");
 const loginFn = require("../logic/login");
 const bcryptjs = require("bcryptjs");
 
 exports.createUser = async (req, res) => {
   try {
-    console.log("come in controller")
 
     const password = req.body.password;
+
     let hashedPassword = await bcryptjs.hash(password , 10)
     req.body.password = hashedPassword;
-    const author = await UserModel.create(req.body);
-    res.status(201).json({ status: true, data: author });
+    console.log("coming",password)
+    const Newuser = await UserModel.create(req.body);
+    res.status(201).json({ status: true, data: Newuser });
   } catch (err) {
     return res.status(400).json({ status: false, msg: err.message });
   }
 };
 
-exports.getAuthor = async (req, res) => {
+exports.getUser = async (req, res) => {
   try {
 
-    res.status(201).json({ status: true, data: "author" });
+    res.status(201).json({ status: true, data: "User" });
   } catch (err) {
     return res.status(400).json({ status: false, msg: err.message });
   }
